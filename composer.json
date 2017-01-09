@@ -1,0 +1,42 @@
+{
+    "name": "crazymeeks/phpcacher",
+    "description": "A PHP caching library",
+    "license": "MIT",
+    "keywords": ["PHP", "PHP Cache", "PHP Cache package"],
+    "authors": [
+        {
+            "name": "crazymeeks",
+            "email": "jeffclaud17@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-4":{
+            "Crazymeeks\\PHPCacher\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "crazymeeks/phpcacher",
+                "version": "master",
+                "source": {
+                    "url": "https://github.com/jepoyclaud/phpmails",
+                    "type": "git",
+                    "reference": "master"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "Crazymeeks\\PHPCacher\\": "src"
+                    }
+                }
+            }
+            
+        }
+    ]
+}
