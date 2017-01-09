@@ -12,7 +12,8 @@
     "autoload":{
         "psr-4":{
             "Crazymeeks\\PHPCacher\\": "src"
-        }
+        },
+        "files": ["src/bin/helpers.php"]
     },
     "minimum-stability": "dev",
     "require": {},
