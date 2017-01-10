@@ -23,7 +23,7 @@ class DriverFactory{
 			throw new PHPCacherDriverNotFoundException('Cache Driver not found. Please specify the driver.');
 		}
 
-		$class = $this->driver_namespace . ucfirst(strtolower($driver)) . '\\FileCacheManager';
+		$class = $this->driver_namespace . ucfirst(strtolower($driver)) . '\\CacheManager';
 		
 		if(class_exists($class)){
 			$class = new ReflectionClass($class);
