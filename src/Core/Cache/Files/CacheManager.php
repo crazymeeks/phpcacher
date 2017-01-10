@@ -12,6 +12,14 @@ use Crazymeeks\PHPCacher\Core\Contracts\CacherDriverInterface;
 use Exception;
 class CacheManager extends CacherDriverAbstract implements CacherDriverInterface{
 	
+	/**
+	 * Construct
+	 *
+	 */
+	public function __construct(){
+
+		$this->setCacheDir();
+	}
 
 	/**
 	 * Set the key for our cache
@@ -51,19 +59,12 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 			throw new Exception('Invalid cache expiration.');
 		}
 
-		$cache_dir = null;
-
-		if(os_type() == 'windows'){
-			$cache_dir = "C:/tmp/";
-		}elseif(os_type() == 'linux' || os_type() == 'mac'){
-			$cache_dir = "/tmp/";
-		}
 		$key = md5($this->key);
-		if(!is_null($cache_dir)){
-			if(!file_exists($cache_dir)){
-				mkdir($cache_dir, 0777);
+		if(!is_null($this->getCacheDir())){
+			if(!file_exists($this->getCacheDir())){
+				mkdir($this->getCacheDir(), 0777);
 			}
-			$file = fopen($cache_dir . $key . '.txt', "w");
+			$file = fopen($this->getCacheDir() . $key . '.txt', "w");
 
 			$data = ['expiration' => [time() + $time, 'data' => $this->cache_data]];
 			$data = serialize($data);
