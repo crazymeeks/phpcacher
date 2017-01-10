@@ -10,7 +10,7 @@
 use Crazymeeks\PHPCacher\Core\Base\CacherDriverAbstract;
 use Crazymeeks\PHPCacher\Core\Contracts\CacherDriverInterface;
 use Exception;
-class FileCacheManager extends CacherDriverAbstract implements CacherDriverInterface{
+class CacheManager extends CacherDriverAbstract implements CacherDriverInterface{
 	
 
 	/**
