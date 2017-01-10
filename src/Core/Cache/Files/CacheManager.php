@@ -9,6 +9,7 @@
 
 use Crazymeeks\PHPCacher\Core\Base\CacherDriverAbstract;
 use Crazymeeks\PHPCacher\Core\Contracts\CacherDriverInterface;
+use Crazymeeks\PHPCacher\Core\Response\Response;
 use Exception;
 class CacheManager extends CacherDriverAbstract implements CacherDriverInterface{
 	
@@ -86,12 +87,11 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 				$file = file_get_contents($this->getCacheDir() . md5($key) . '.txt');
 				$data = unserialize($file);
 				if($data['expiration'][0] < time()){
-					echo "expired na";exit;
+					return [];
 				}
-				echo "<pre>";
-				print_r($data);
+				return Response::toJson($data['expiration']['data'], 200);
 			}else{
-				echo 'Cache not written';
+				return Response::error(['cache' => ['Cannot write the cache']]);
 			}
 			
 		}else{
