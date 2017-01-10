@@ -11,25 +11,22 @@ use Crazymeeks\PHPCacher\Core\Base\CacherDriverAbstract;
 use Crazymeeks\PHPCacher\Core\Contracts\CacherDriverInterface;
 use Exception;
 use Predis;
-
+use Predis\Client as RedisClient;
 class CacheManager extends CacherDriverAbstract implements CacherDriverInterface{
 	
 	protected $redis_client;
 
-	public function __construct(){
+	public function __construct(RedisClient $redisclient){
 
-		$this->connect();
+		$this->connect($redisclient);
 
 	}
 
-	public function connect(){
-		$redis_client = new Predis\Client(array(
-            "host" => "localhost"
-        ));
+	public function connect(RedisClient $client){
 
-        $redis_client->connect();
+        $client->connect();
 
-        $this->redis_client = $redis_client;
+        $this->redis_client = $client;
 
         
 	}

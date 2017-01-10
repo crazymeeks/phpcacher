@@ -7,7 +7,7 @@
  * @since 2016
  */
 
-use Crazymeeks\PHPCacher\Factories\DriverFactory;
+use Crazymeeks\PHPCacher\Core\Factories\DriverFactory;
 class Cacher{
 
 	/**

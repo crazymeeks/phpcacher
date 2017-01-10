@@ -76,13 +76,24 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	}
 
 	public function getItem($key){
-		$file = file_get_contents("C:/tmp/" . md5($key) . '.txt');
-		$data = unserialize($file);
-		if($data['expiration'][0] < time()){
-			echo "expired na";exit;
+		if(!is_null($this->getCacheDir())){
+
+			if(file_exists($this->getCacheDir() . md5($key) . '.txt')){
+				$file = file_get_contents($this->getCacheDir() . md5($key) . '.txt');
+				$data = unserialize($file);
+				if($data['expiration'][0] < time()){
+					echo "expired na";exit;
+				}
+				echo "<pre>";
+				print_r($data);
+			}else{
+				echo 'Cache not written';
+			}
+			
+		}else{
+			echo "No directory found";
 		}
-		echo "<pre>";
-		print_r($data);
+		
 	}
 
 }
