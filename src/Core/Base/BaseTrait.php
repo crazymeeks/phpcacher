@@ -22,15 +22,22 @@ trait BaseTrait{
 
 	/**
 	 * Set cache directory
-	 *
+	 * 
+	 * @param string $customCachePath    The custom cache path set by developer
 	 * @return void
 	 */
-	public function setCacheDir(){
+	public function setCacheDir($customCachePath = null){
+
 		$cache_dir = null;
-		if(os_type() == 'windows'){
-			$cache_dir = "C:/tmp/";
-		}elseif(os_type() == 'linux' || os_type() == 'mac'){
-			$cache_dir = "/tmp/";
+
+		if(is_null($customCachePath)){
+			if(os_type() == 'windows'){
+			$cache_dir = "C:/tmp/" . $this->getRootDir() . '/';
+			}elseif(os_type() == 'linux' || os_type() == 'mac'){
+				$cache_dir = "/tmp/" . $this->getRootDir() . '/';;
+			}
+		}else{
+			$cache_dir = rtrim($customCachePath, "/") . '/' . $this->getRootDir() . '/';
 		}
 
 		$this->cache_dir = $cache_dir;
@@ -43,5 +50,18 @@ trait BaseTrait{
 	 */
 	public function getCacheDir(){
 		return $this->cache_dir;
+	}
+
+	/**
+	 * Get the project directory
+	 *
+	 * We will use this together with cache defined directory
+	 * to store cached data
+	 * 
+	 * @return string
+	 */
+	public function getRootDir(){
+		$dir_root = explode("/", rtrim($_SERVER['DOCUMENT_ROOT'], "/"));
+		return $dir_root[count($dir_root) - 1];
 	}
 }

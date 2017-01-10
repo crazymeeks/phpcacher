@@ -8,6 +8,7 @@
  */
 
 use Crazymeeks\PHPCacher\Core\Factories\DriverFactory;
+use Closure;
 class Cacher{
 
 	/**
@@ -31,10 +32,17 @@ class Cacher{
 	 * Set the cache driver
 	 *
 	 * @param string $driver
+	 * @param string $customCachePath        The cache path set by developer.
+	 *                                       For windows users set it like c:/tmp
+	 *                                       For unix users set it like /var/something
 	 * @return Object         The driver object
 	 */
-	public function setDriver($driver){
+	public function setDriver($driver, $customCachePath = null){
 		$this->driver = $this->driverfactory->make($driver);
+
+		if(!is_null($customCachePath))
+			$this->driver->setCacheDir($customCachePath);
+		
 		return $this->driver;
 	}
 }

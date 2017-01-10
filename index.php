@@ -8,10 +8,10 @@ $cache = new Cacher;
 /*** File Cache **/
 
 
-$instance = $cache->setDriver('files');
+$instance = $cache->setDriver('files', "C:/tmp");
 
-//echo $instance->setKey('test')->setItem(['test'])->expires(30);
-$instance->getItem('test');
+echo $instance->setKey('test')->setItem(['test'])->expires(30);
+//$instance->getItem('test');
 
 
 /*** Redis Cache **/

@@ -18,7 +18,9 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 */
 	public function __construct(){
 
+		// set the cache directory
 		$this->setCacheDir();
+
 	}
 
 	/**
@@ -61,8 +63,9 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 
 		$key = md5($this->key);
 		if(!is_null($this->getCacheDir())){
+
 			if(!file_exists($this->getCacheDir())){
-				mkdir($this->getCacheDir(), 0777);
+				mkdir($this->getCacheDir(), 0777, true);
 			}
 			$file = fopen($this->getCacheDir() . $key . '.txt', "w");
 
@@ -76,6 +79,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	}
 
 	public function getItem($key){
+
 		if(!is_null($this->getCacheDir())){
 
 			if(file_exists($this->getCacheDir() . md5($key) . '.txt')){
