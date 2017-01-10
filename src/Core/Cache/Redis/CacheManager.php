@@ -10,12 +10,28 @@
 use Crazymeeks\PHPCacher\Core\Base\CacherDriverAbstract;
 use Crazymeeks\PHPCacher\Core\Contracts\CacherDriverInterface;
 use Exception;
+use Predis;
 
 class CacheManager extends CacherDriverAbstract implements CacherDriverInterface{
 	
+	protected $redis_client;
+
 	public function __construct(){
-		
-		echo "Hello World";
+
+		$this->connect();
+
+	}
+
+	public function connect(){
+		$redis_client = new Predis\Client(array(
+            "host" => "localhost"
+        ));
+
+        $redis_client->connect();
+
+        $this->redis_client = $redis_client;
+
+        
 	}
 
 	/**
@@ -55,38 +71,31 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		if(!is_numeric($time)){
 			throw new Exception('Invalid cache expiration.');
 		}
-
-		$cache_dir = null;
-
-		if(os_type() == 'windows'){
-			$cache_dir = "C:/tmp/";
-		}elseif(os_type() == 'linux' || os_type() == 'mac'){
-			$cache_dir = "/tmp/";
-		}
-		$key = md5($this->key);
-		if(!is_null($cache_dir)){
-			if(!file_exists($cache_dir)){
-				mkdir($cache_dir, 0777);
-			}
-			$file = fopen($cache_dir . $key . '.txt', "w");
-
-			$data = ['expiration' => [time() + $time, 'data' => $this->cache_data]];
-			$data = serialize($data);
-			fwrite($file, $data);
-			fclose($file);
-			echo $this->key;
-		}
+		$this->redis_client->set($this->key,$this->cache_data);
+		$this->redis_client->expire($this->key, $time);
+		$this->redis_client->ttl($this->key);
 
 	}
+
+	/**
+	 * Get single item
+	 * 
+	 * @param string $key
+	 * @return string
+	 */
 
 	public function getItem($key){
-		$file = file_get_contents("C:/tmp/" . md5($key) . '.txt');
-		$data = unserialize($file);
-		if($data['expiration'][0] < time()){
-			echo "expired na";exit;
-		}
-		echo "<pre>";
-		print_r($data);
+		return $this->redis_client->get($key);
 	}
 
+	/**
+	 * Get all items in redis
+	 * 
+	 *
+	 * @return array
+	 */
+	public function getAllItems(){
+
+		return $this->redis_client->keys("*");
+	}
 }
