@@ -17,6 +17,9 @@ Run this code in your cmd
 
 composer require crazymeeks/phpcacher  
   
+If this command fails, add this code to your composer.json under 'require'  
+"crazymeeks/phpcacher": "dev-master"  
+Then run composer update in your cmd/terminal
 
 ## How to use ?
 Use the the Cacher in your class  
