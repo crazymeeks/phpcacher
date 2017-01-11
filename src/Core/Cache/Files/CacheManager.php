@@ -99,7 +99,8 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 				}
 				return $data['expiration']['data'];
 			}else{
-				return Response::error(['cache' => ['Cannot write the cache']]);
+				// If cache file has been deleted
+				return [];
 			}
 			
 		}else{
