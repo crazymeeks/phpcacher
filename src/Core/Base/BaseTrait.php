@@ -9,6 +9,12 @@ trait BaseTrait{
 	protected $cache_key;
 
 	/**
+	 * The custom identifier for the cache
+	 * @var
+	 */
+	protected $custom_key = null;
+
+	/**
 	 * Holds our cache data
 	 * @var mixed
 	 */

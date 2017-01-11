@@ -12,7 +12,7 @@ use Crazymeeks\PHPCacher\Core\Contracts\CacherDriverInterface;
 use Crazymeeks\PHPCacher\Core\Response\Response;
 use Exception;
 class CacheManager extends CacherDriverAbstract implements CacherDriverInterface{
-	
+
 	/**
 	 * Construct
 	 *
@@ -30,10 +30,12 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 * Set the key for our cache
 	 *
 	 * @param string $key         The name of the cache's key
+	 * @param string $customKey   The identifier
 	 * @return $this
 	 */
-	public function setKey($key){
-		$this->key = $key;
+	public function setKey($key, $customKey = null){
+		$this->cache_key = $key;
+		$this->custom_key = $customKey;
 
 		return $this;
 	}
@@ -59,12 +61,12 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 * @return void
 	 */
 	public function expires($time){
-
+		
 		if(!is_numeric($time)){
 			throw new Exception('Invalid cache expiration.');
 		}
 
-		$key = md5($this->key);
+		$key = md5($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
 		if(!is_null($this->getCacheDir())){
 
 			if(!file_exists($this->getCacheDir())){
@@ -84,11 +86,13 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 * Get the item in the cache
 	 *
 	 * @param mixed $key              The cache key
+	 * @param string $customClaim     The custom claim to the cache
 	 * @return mixed
 	 */
-	public function getItem($key){
+	public function getItem($key, $customClaim = null){
 
 		if(!is_null($this->getCacheDir())){
+			$key = (!is_null($customClaim) ? $key = $key . '-' . $customClaim : $key = $key . '');
 
 			if(file_exists($this->getCacheDir() . md5($key) . '.txt')){
 				$file = file_get_contents($this->getCacheDir() . md5($key) . '.txt');
