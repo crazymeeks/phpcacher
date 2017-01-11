@@ -1,6 +1,9 @@
 ## PHPCacher
 THe PHP caching library
 
+## Note:
+This library is in continues development
+
 ## Driver currently supported
 Files  
 Redis  
@@ -15,8 +18,26 @@ Run this code in your cmd
 composer require crazymeeks/phpcacher  
   
 
-## Note:
-This library is in continues development
+## How to use ?
+Use the the Cacher in your class  
+use Crazymeeks\PHPCacher\Cacher;
+
+$cache = new Cacher;  
+$instance = $cache->setDriver('files');  
+$data = array('id' => 1, 'name' => 'John Doe');  
+  
+Store data to cache and expires in 1hr  
+$instance->setKey('user')->setItem()->expires(3600);  
+  
+Get Item in the cache  
+$item = $instance->getItem('user');  
+  
+Print the item  
+print_r($item);
+
+## Setting custom cache directory
+You can also set your own cache directory where the cache data will be save.  
+$instance->cache->setDriver('files', '/tmp/'); // For windows users, 'D:/cachetmp' or 'C:/cachetmp'  
 
 ## Report Bug
 Email: jeffclaud17@gmail.com

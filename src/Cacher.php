@@ -38,6 +38,7 @@ class Cacher{
 	 * @return Object         The driver object
 	 */
 	public function setDriver($driver, $customCachePath = null){
+		$driver = strtolower($driver);
 		$this->driver = $this->driverfactory->make($driver);
 
 		if(!is_null($customCachePath))
