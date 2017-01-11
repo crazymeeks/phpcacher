@@ -15,18 +15,21 @@ class Response{
 	 *
 	 * @param array $message         The message of the response
 	 * @param int $code              The HTTP status code
+       * @param bool $error            
 	 * @return mixed
 	 */
-	public static function toJson($message = array(), $code = 200){
+	public static function toJson($message = array(), $code = 200, $error = false){
 		self::responseHeader($code);
 		header("Content-Type: application/json;charset=utf-8");
 
-		if(is_array($message)){
-			echo json_encode($message);
+		if($error){
+                  $message = json_encode($message);
+			echo $message;
+                  return $message;
 		}else{
 			json_decode($message);
  			$data = (json_last_error() == JSON_ERROR_NONE) ? $message : json_encode($message);	
- 			echo $data;
+ 			//echo $data;
  			return $data;
 		}
 		
@@ -40,7 +43,7 @@ class Response{
 	 * @return string/json
 	 */
 	public static function error($message = array(), $code = 400){
-		return self::toJson($message, $code);
+		return self::toJson($message, $code, true);
 	}
 
 	/**

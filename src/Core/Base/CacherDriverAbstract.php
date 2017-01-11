@@ -14,8 +14,26 @@ use Crazymeeks\PHPCacher\Core\Base\BaseTrait;
 abstract class CacherDriverAbstract{
 
 	use BaseTrait;
-	
-	protected $driver;
 
+	protected $driverName;
+
+	/**
+	 * Set the cache driver name
+	 * 
+	 * @param string $driverName
+	 * @return void
+	 */
+	public function setDriverName($driverName){
+		$this->driverName = $driverName;
+	}
+
+	/**
+	 * Get the cache driver name
+	 *
+	 * @return string
+	 */
+	public function getDriverName(){
+		return $this->driverName;
+	}
 	
 }

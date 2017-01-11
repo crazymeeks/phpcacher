@@ -27,17 +27,17 @@ trait BaseTrait{
 	 * @return void
 	 */
 	public function setCacheDir($customCachePath = null){
-
+		
 		$cache_dir = null;
 
 		if(is_null($customCachePath)){
 			if(os_type() == 'windows'){
-			$cache_dir = "C:/tmp/" . $this->getRootDir() . '/';
+			$cache_dir = "C:/tmp/" . $this->getRootDir() . '/' . strotolower($this->getDriverName()) . '/';
 			}elseif(os_type() == 'linux' || os_type() == 'mac'){
-				$cache_dir = "/tmp/" . $this->getRootDir() . '/';;
+				$cache_dir = "/tmp/" . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
 			}
 		}else{
-			$cache_dir = rtrim($customCachePath, "/") . '/' . $this->getRootDir() . '/';
+			$cache_dir = rtrim($customCachePath, "/") . '/' . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
 		}
 
 		$this->cache_dir = $cache_dir;

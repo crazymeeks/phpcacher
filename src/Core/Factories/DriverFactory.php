@@ -24,6 +24,7 @@ class DriverFactory extends ConstructorResolverFactory{
 	 * @return Object           The driver object
 	 */
 	public function make($driver){
+
 		if(!in_array($driver, $this->available_drivers)){
 			throw new PHPCacherDriverNotFoundException('Cache Driver not found. Please specify the driver.');
 		}
@@ -31,21 +32,27 @@ class DriverFactory extends ConstructorResolverFactory{
 		$class = $this->driver_namespace . ucfirst(strtolower($driver)) . '\\CacheManager';
 		
 		if(class_exists($class)){
+
 			$constructor = $this->createClassConstructor($driver);
+
 			$instance = $constructor;
+
 			if(is_object($constructor) && $driver == 'redis'){
+				// can do also
+				// (new ReflectionObject($constructor))->getNamespaceName() . '\Client';
 				
-				$ReflectionClass = new ReflectionClass((new ReflectionObject($constructor))->getNamespaceName() . '\Client');
+				$ReflectionClass = new ReflectionClass($constructor);
 				$instance = $ReflectionClass->newInstanceArgs(['host' => 'localhost']);
 				$orig = new $class($instance);
 
 			}else{
 				$ReflectionClass = new ReflectionClass($class);
-				$orig = $ReflectionClass->newInstanceArgs($instance);	
+				$orig = $ReflectionClass->newInstanceArgs([$instance, $driver]);	
 			}
 			
 			return $orig;
 		}
+
 		throw new PHPCacherDriverNotFoundException('Cache Driver not found.');
 	}
 }

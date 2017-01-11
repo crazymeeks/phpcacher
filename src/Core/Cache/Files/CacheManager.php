@@ -17,10 +17,12 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 * Construct
 	 *
 	 */
-	public function __construct(){
+	public function __construct($config = array(), $drivername){
 
+		$this->setDriverName($drivername);
 		// set the cache directory
 		$this->setCacheDir();
+
 
 	}
 
@@ -87,15 +89,16 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 				$file = file_get_contents($this->getCacheDir() . md5($key) . '.txt');
 				$data = unserialize($file);
 				if($data['expiration'][0] < time()){
+					unlink($this->getCacheDir() . md5($key) . '.txt');
 					return [];
 				}
-				return Response::toJson($data['expiration']['data'], 200);
+				return $data['expiration']['data'];
 			}else{
 				return Response::error(['cache' => ['Cannot write the cache']]);
 			}
 			
 		}else{
-			echo "No directory found";
+			return Response::error(['cachedir' => ['Cache directory not found.']], 500);
 		}
 		
 	}
