@@ -5,6 +5,15 @@ THe PHP caching library
 Files  
 Redis  
 
+## Requirements
+PHP 5.6 or greater
+
+## Installation
+Composer  
+Run this code in your cmd  
+
+composer require crazymeeks/phpcacher  
+  
 
 ## Note:
 This library is in continues development
