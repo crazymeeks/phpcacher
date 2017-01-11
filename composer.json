@@ -29,7 +29,7 @@
                 "name": "crazymeeks/phpcacher",
                 "version": "master",
                 "source": {
-                    "url": "https://github.com/jepoyclaud/phpmails",
+                    "url": "https://github.com/jepoyclaud/phpcacher",
                     "type": "git",
                     "reference": "master"
                 },

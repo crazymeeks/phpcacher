@@ -76,11 +76,16 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 			$data = serialize($data);
 			fwrite($file, $data);
 			fclose($file);
-			echo $this->key;
 		}
 
 	}
 
+	/**
+	 * Get the item in the cache
+	 *
+	 * @param mixed $key              The cache key
+	 * @return mixed
+	 */
 	public function getItem($key){
 
 		if(!is_null($this->getCacheDir())){
