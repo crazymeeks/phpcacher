@@ -33,17 +33,17 @@ if(count($data) > 0){
 
 /*$instance = $cache->setDriver('redis');
 
-$instance->setKey('names')->setItem('Aaron Paul')->expires(10);
+$instance->setKey('names','aaron')->setItem('Aaron Paul')->expires(10);
 
-var_dump($instance->getItem("names"));
-*/
+var_dump($instance->getItem("names","aaron"));*/
+
 
 
 /*********Sample Usage of Logger***********/
 
 
 
-$log = new Logger();
-$log_var = $log->setLogger("user");
+// $log = new Logger();
+// $log_var = $log->setLogger("user");
 
-echo $log_var->writeLog("Send Mail", 123);
+// echo $log_var->writeLog("Send Mail", 123);

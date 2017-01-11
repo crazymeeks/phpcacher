@@ -37,8 +37,9 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 * @param string $key         The name of the cache's key
 	 * @return $this
 	 */
-	public function setKey($key){
-		$this->key = $key;
+	public function setKey($key, $customKey = null){
+		$this->cache_key = $key;
+		$this->custom_key = $customKey;
 
 		return $this;
 	}
@@ -68,9 +69,10 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		if(!is_numeric($time)){
 			throw new Exception('Invalid cache expiration.');
 		}
-		$this->redis_client->set($this->key,$this->cache_data);
-		$this->redis_client->expire($this->key, $time);
-		$this->redis_client->ttl($this->key);
+		$key = ($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
+		$this->redis_client->set($key, $this->cache_data);
+		$this->redis_client->expire($key, $time);
+		$this->redis_client->ttl($key);
 
 	}
 
@@ -81,7 +83,9 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 * @return string
 	 */
 
-	public function getItem($key){
+	public function getItem($key, $customClaim = null){
+		$key = (!is_null($customClaim) ? $key = $key . '-' . $customClaim : $key = $key . '');
+		
 		return $this->redis_client->get($key);
 	}
 
