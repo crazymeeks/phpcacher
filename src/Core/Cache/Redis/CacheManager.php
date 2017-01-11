@@ -64,7 +64,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 * @param int $time
 	 * @return void
 	 */
-	public function expires($time){
+	public function expires($time = 3600){
 
 		if(!is_numeric($time)){
 			throw new Exception('Invalid cache expiration.');
