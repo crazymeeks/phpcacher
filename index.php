@@ -9,11 +9,12 @@ $cache = new Cacher;
 /*** File Cache **/
 
 
-/*
-$instance = $cache->setDriver('files');
+
+/*$instance = $cache->setDriver('files');
 $data = json_encode([['id' => 2, 'name' => 'John Does', 'email' => 'johndoe@example.com']]);
-*/
-//$instance->setKey('user?page=1', 1)->setItem($data)->expires(3600);
+$instance->setExpiration(30);
+
+$instance->setKey('user?page=1', 1)->setItem($data)->expires(3600);*/
 /*$data = json_decode($instance->getItem('user?page=1', 1));
 
 

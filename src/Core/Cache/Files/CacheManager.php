@@ -60,7 +60,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	 * @param int $time
 	 * @return void
 	 */
-	public function expires($time){
+	public function expires($time = 3600){
 		
 		if(!is_numeric($time)){
 			throw new Exception('Invalid cache expiration.');
@@ -73,7 +73,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 				mkdir($this->getCacheDir(), 0777, true);
 			}
 			$file = fopen($this->getCacheDir() . $key . '.txt', "w");
-
+			$time = (!is_null($this->getExpiration()) ? $this->getExpiration() : $time);
 			$data = ['expiration' => [time() + $time, 'data' => $this->cache_data]];
 			$data = serialize($data);
 			fwrite($file, $data);

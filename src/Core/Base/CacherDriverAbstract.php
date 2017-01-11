@@ -35,5 +35,28 @@ abstract class CacherDriverAbstract{
 	public function getDriverName(){
 		return $this->driverName;
 	}
+
+	/**
+	 * Set cache expiration. This enables developers to set expiration
+	 *
+	 * @param int $time             The time of expiration
+	 * @return int
+	 * @throw Exception
+	 */
+	public function setExpiration($time){
+		if(empty($time) && is_null($time)){
+			throw new Exception('Invalid expiration.');
+		}
+		$this->expireAt = (int)$time;
+	}
+
+	/**
+	 * Get the cache expiration
+	 *
+	 * @return int
+	 */
+	public function getExpiration(){
+		return $this->expireAt;
+	}
 	
 }

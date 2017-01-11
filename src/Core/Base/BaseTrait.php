@@ -27,6 +27,12 @@ trait BaseTrait{
 	protected $cache_dir = null;
 
 	/**
+	 * Cache expiration
+	 * @var
+	 */
+	protected $expireAt = null;
+
+	/**
 	 * Set cache directory
 	 * 
 	 * @param string $customCachePath    The custom cache path set by developer

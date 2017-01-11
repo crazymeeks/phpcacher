@@ -14,9 +14,8 @@ interface CacherDriverInterface{
 
 	public function setItem($data);
 
-	public function expires($time);
+	public function expires($time = 3600);
 
 	public function getItem($key, $customClaim = null);
-
 
 }
