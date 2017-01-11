@@ -38,7 +38,7 @@ trait BaseTrait{
 
 		if(is_null($customCachePath)){
 			if(os_type() == 'windows'){
-			$cache_dir = "C:/tmp/" . $this->getRootDir() . '/' . strotolower($this->getDriverName()) . '/';
+			$cache_dir = "C:/tmp/" . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
 			}elseif(os_type() == 'linux' || os_type() == 'mac'){
 				$cache_dir = "/tmp/" . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
 			}
