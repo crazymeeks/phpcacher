@@ -17,8 +17,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "predis/predis": "^1.1",
-        "monolog/monolog": "^1.22"
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.*"
