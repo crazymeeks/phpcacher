@@ -15,7 +15,7 @@
         },
         "files": ["src/bin/helpers.php"]
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "predis/predis": "^1.1"
     },
