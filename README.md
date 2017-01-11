@@ -15,7 +15,7 @@ PHP 5.6 or greater
 Composer  
 Run this code in your cmd  
 
-composer require crazymeeks/phpcacher  
+composer require crazymeeks/phpcacher dev-master  
   
 If this command fails, add this code to your composer.json under 'require'  
 "crazymeeks/phpcacher": "dev-master"  
