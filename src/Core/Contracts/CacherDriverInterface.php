@@ -10,13 +10,13 @@
 interface CacherDriverInterface{
 	
 
-	public function setKey($key);
+	public function setKey($key, $customKey = null);
 
 	public function setItem($data);
 
 	public function expires($time);
 
-	public function getItem($key);
+	public function getItem($key, $customClaim = null);
 
 
 }

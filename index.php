@@ -9,9 +9,9 @@ $cache = new Cacher;
 
 
 $instance = $cache->setDriver('files');
-$data = json_encode([['id' => 1, 'name' => 'John Doe', 'email' => 'johndoe@example.com']]);
-$instance->setKey('user')->setItem($data)->expires(3600);
-/*$data = json_decode($instance->getItem('user'));
+$data = json_encode([['id' => 2, 'name' => 'John Does', 'email' => 'johndoe@example.com']]);
+//$instance->setKey('user?page=1', 1)->setItem($data)->expires(3600);
+/*$data = json_decode($instance->getItem('user?page=1', 1));
 
 
 //echo gettype($data);
