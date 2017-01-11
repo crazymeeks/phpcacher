@@ -2,11 +2,10 @@
 THe PHP caching library
 
 ## Note:
-This library is in continues development
+This library is in continues development. Redis will be supported soon.
 
 ## Driver currently supported
 Files  
-Redis  
 
 ## Requirements
 PHP 5.6 or greater
