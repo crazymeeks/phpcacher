@@ -32,11 +32,11 @@ if(count($data) > 0){
 /*** Redis Cache **/
 
 
-/*$instance = $cache->setDriver('redis');
+// $instance = $cache->setDriver('redis');
 
-$instance->setKey('names','aaron')->setItem('Aaron Paul')->expires(10);
+// $instance->setKey('names','aaron')->setItem('Aaron Paul')->expires(10);
 
-var_dump($instance->getItem("names","aaron"));*/
+// var_dump($instance->getItem("names","aaron"));
 
 
 
@@ -44,7 +44,7 @@ var_dump($instance->getItem("names","aaron"));*/
 
 
 
-// $log = new Logger();
-// $log_var = $log->setLogger("user");
+$log = new Logger();
+$log_var = $log->setLogger("redis");
 
-// echo $log_var->writeLog("Send Mail", 123);
+echo $log_var->setLog("Test Logger",3);

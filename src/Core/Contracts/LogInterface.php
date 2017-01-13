@@ -9,6 +9,6 @@
 
 interface LogInterface{
 	
-	public function writeLog($log, $type);
+	public function setLog($log, $type);
 
 }
