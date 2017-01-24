@@ -30,7 +30,8 @@ $instance = $cache->setDriver('files');
 $data = array('id' => 1, 'name' => 'John Doe');  
   
 Store data to cache and expires in 1hr  
-$instance->setKey('user')->setItem()->expires(3600);  
+$data = array('name' => 'John Doe');
+$instance->setKey('user')->setItem($data)->expires(3600);  
   
 Get Item in the cache  
 $item = $instance->getItem('user');  
