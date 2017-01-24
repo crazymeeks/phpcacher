@@ -113,4 +113,26 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		
 	}
 
+	/**
+	 * Delete item in cache
+	 *
+	 * @param string $key          The cache key
+	 * @param string $customClaim  The cache custom key
+	 * @return bool
+	 */
+
+	public function deleteCache($key, $customClaim = null){
+		if(!is_null($this->getCacheDir())){
+			$key = (!is_null($customClaim) ? $key = $key . '-' . $customClaim : $key = $key . '');
+
+			if(file_exists($this->getCacheDir() . md5($key) . '.txt')){
+				unlink($this->getCacheDir() . md5($key) . '.txt');
+				return true;
+			}else{
+				// If cache file has been deleted
+				return false;
+			}
+		}
+	}
+
 }
