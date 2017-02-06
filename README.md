@@ -40,7 +40,16 @@ print_r($item);
 
 ## Setting custom cache directory
 You can also set your own cache directory where the cache data will be save.  
-$instance->cache->setDriver('files', '/tmp/'); // For windows users, 'D:/cachetmp' or 'C:/cachetmp'  
+$instance->setDriver('files', '/tmp/'); // For windows users, 'D:/cachetmp' or 'C:/cachetmp'  
+
+## Deleting item from the cache
+$instance->deleteCache($key, $customClaims);
+
+## Setting custom expiration
+You can also set your custom expiration that will be use by the entire application  
+Just call: $instance->setExpiration(900); // expires in 15minutes  
+After this, you can pass 0 in the expires() method.  
+Example: $instance->setKey('user')->setItem($data)->expires(0);  
 
 ## Report Bug
 Email: jeffclaud17@gmail.com
