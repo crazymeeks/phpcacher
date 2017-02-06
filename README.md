@@ -51,6 +51,11 @@ Just call: $instance->setExpiration(900); // expires in 15minutes
 After this, you can pass 0 in the expires() method.  
 Example: $instance->setKey('user')->setItem($data)->expires(0);  
 
+## Purging the cache
+You can purge the cache by calling  
+$instance->purgeAllCache();  
+This is usually useful after update & deletion of data
+
 ## Report Bug
 Email: jeffclaud17@gmail.com
 
