@@ -58,5 +58,14 @@ abstract class CacherDriverAbstract{
 	public function getExpiration(){
 		return $this->expireAt;
 	}
+
+	public function purgeAllCache(){
+		$cache_files = glob($this->getCacheDir() . '*');
+		foreach($cache_files as $file){
+			if(is_file($file)){
+				unlink($file);
+			}
+		}
+	}
 	
 }
