@@ -10,11 +10,11 @@ $cache = new Cacher;
 
 
 
-/*$instance = $cache->setDriver('files');
+$instance = $cache->setDriver('files');
 $data = json_encode([['id' => 2, 'name' => 'John Does', 'email' => 'johndoe@example.com']]);
 $instance->setExpiration(30);
 
-$instance->setKey('user?page=1', 1)->setItem($data)->expires(3600);*/
+$instance->setKey('1')->setItem($data)->expires(3600);
 /*$data = json_decode($instance->getItem('user?page=1', 1));
 
 
@@ -44,7 +44,7 @@ if(count($data) > 0){
 
 
 
-$log = new Logger();
+/*$log = new Logger();
 $log_var = $log->setLogger("redis");
 
-echo $log_var->setLog("Test Logger",3);
+echo $log_var->setLog("Test Logger",3);*/

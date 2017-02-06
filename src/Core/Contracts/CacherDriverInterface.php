@@ -18,4 +18,16 @@ interface CacherDriverInterface{
 
 	public function getItem($key, $customClaim = null);
 
+	public function deleteCache($key, $customClaim = null);
+
+	public function setDriverName($driverName);
+
+	public function getDriverName();
+
+	public function setExpiration($time);
+
+	public function getExpiration();
+
+	public function purgeAllCache();
+
 }
