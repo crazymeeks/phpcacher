@@ -13,7 +13,7 @@ use Crazymeeks\PHPCacher\Core\Factories\ConstructorResolverFactory;
 
 class DriverFactory extends ConstructorResolverFactory{
 	
-	private $available_drivers = ['files', 'redis', 'mongo'];
+	private $available_drivers = ['files', 'redis', 'mongo', 'apcu'];
 
 
 	protected $driver_namespace = 'Crazymeeks\\PHPCacher\\Core\\Cache\\';

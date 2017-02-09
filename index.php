@@ -1,5 +1,5 @@
 <?php
-require_once('./vendor/autoload.php');
+require('./vendor/autoload.php');
 
 use Crazymeeks\PHPCacher\Cacher;
 use Crazymeeks\PHPCacher\Logger;
@@ -11,10 +11,15 @@ $cache = new Cacher;
 
 
 $instance = $cache->setDriver('files');
+//$instance->purgeAllCache();exit;
 $data = json_encode([['id' => 2, 'name' => 'John Does', 'email' => 'johndoe@example.com']]);
+echo "<pre>";
+print_r($instance->getItem('jepoy'));exit;
+$instance->setKey('jepoy')->setItem($data)->expires(130);
+/*$data = json_encode([['id' => 2, 'name' => 'John Does', 'email' => 'johndoe@example.com']]);
 $instance->setExpiration(30);
 
-$instance->setKey('1')->setItem($data)->expires(3600);
+$instance->setKey('1')->setItem($data)->expires(3600);*/
 /*$data = json_decode($instance->getItem('user?page=1', 1));
 
 

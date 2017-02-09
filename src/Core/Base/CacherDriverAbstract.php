@@ -17,6 +17,10 @@ abstract class CacherDriverAbstract{
 
 	protected $driverName;
 
+	protected $namespace = "Crazymeeks\\PHPCacher\\Core\\Cache\\";
+
+	protected $cache_purger_postfix = 'CachePurger';
+
 	/**
 	 * Set the cache driver name
 	 * 
@@ -60,12 +64,15 @@ abstract class CacherDriverAbstract{
 	}
 
 	public function purgeAllCache(){
-		$cache_files = glob($this->getCacheDir() . '*');
+		$class = $this->namespace . ucfirst($this->getDriverName()) . '\\' .$this->cache_purger_postfix;
+		$purger = new $class;
+		$purger->purgeAllCache($this->getCacheDir());
+		/*$cache_files = glob($this->getCacheDir() . '*');
 		foreach($cache_files as $file){
 			if(is_file($file)){
 				unlink($file);
 			}
-		}
+		}*/
 	}
 	
 }
