@@ -11,11 +11,8 @@ $cache = new Cacher;
 
 
 $instance = $cache->setDriver('files');
-//$instance->purgeAllCache();exit;
 $data = json_encode([['id' => 2, 'name' => 'John Does', 'email' => 'johndoe@example.com']]);
-echo "<pre>";
-print_r($instance->getItem('jepoy'));exit;
-$instance->setKey('jepoy')->setItem($data)->expires(130);
+$instance->setKey('cachekey')->setItem($data)->expires(130);
 /*$data = json_encode([['id' => 2, 'name' => 'John Does', 'email' => 'johndoe@example.com']]);
 $instance->setExpiration(30);
 
