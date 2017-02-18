@@ -30,4 +30,30 @@ interface CacherDriverInterface{
 
 	public function purgeAllCache();
 
+
+	/**
+	 * Expires the cache daily
+	 *
+	 * @return void
+	 */
+	public function daily();
+
+	/**
+	 * Expires the cache hourly
+	 * @return void
+	 */
+	public function hourly();
+
+	/**
+	 * Expires the cache every 30minutes
+	 * @return void
+	 */
+	public function everyThirtyMinutes();
+
+	/**
+	 * Expires the cache
+	 * @return void
+	 */
+	public function everyFiveMinutes();
+
 }

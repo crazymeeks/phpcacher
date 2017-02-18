@@ -16,6 +16,9 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	/**
 	 * Construct
 	 *
+	 * @param array $config        The configuration of the cache
+	 * @param string $drivername   The name of the driver
+	 * @return void
 	 */
 	public function __construct($config = array(), $drivername){
 
@@ -23,6 +26,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		// set the cache directory
 		$this->setCacheDir();
 
+		$this->cacheDriver = $this;
 
 	}
 
@@ -65,20 +69,20 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		if(!is_numeric($time)){
 			throw new Exception('Invalid cache expiration.');
 		}
+		$this->save(time() + $time);
+		// $key = md5($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
+		// if(!is_null($this->getCacheDir())){
 
-		$key = md5($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
-		if(!is_null($this->getCacheDir())){
-
-			if(!file_exists($this->getCacheDir())){
-				mkdir($this->getCacheDir(), 0777, true);
-			}
-			$file = fopen($this->getCacheDir() . $key . '.txt', "w");
-			$time = (!is_null($this->getExpiration()) ? $this->getExpiration() : $time);
-			$data = ['expiration' => [time() + $time, 'data' => $this->cache_data]];
-			$data = serialize($data);
-			fwrite($file, $data);
-			fclose($file);
-		}
+		// 	if(!file_exists($this->getCacheDir())){
+		// 		mkdir($this->getCacheDir(), 0777, true);
+		// 	}
+		// 	$file = fopen($this->getCacheDir() . $key . '.txt', "w");
+		// 	$time = (!is_null($this->getExpiration()) ? $this->getExpiration() : $time);
+		// 	$data = ['expiration' => [time() + $time, 'data' => $this->cache_data]];
+		// 	$data = serialize($data);
+		// 	fwrite($file, $data);
+		// 	fclose($file);
+		// }
 
 	}
 
@@ -132,6 +136,22 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 				// If cache file has been deleted
 				return false;
 			}
+		}
+	}
+
+	public function filesSaveCache($time){
+		$key = md5($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
+		if(!is_null($this->getCacheDir())){
+
+			if(!file_exists($this->getCacheDir())){
+				mkdir($this->getCacheDir(), 0777, true);
+			}
+			$file = fopen($this->getCacheDir() . $key . '.txt', "w");
+			$time = (!is_null($this->getExpiration()) ? $this->getExpiration() : $time);
+			$data = ['expiration' => [$time, 'data' => $this->cache_data]];
+			$data = serialize($data);
+			fwrite($file, $data);
+			fclose($file);
 		}
 	}
 

@@ -10,10 +10,12 @@
 use Crazymeeks\PHPCacher\Contracts\CacherDriverInterface;
 use Crazymeeks\PHPCacher\Core\Driver;
 use Crazymeeks\PHPCacher\Core\Base\BaseTrait;
-
+use Crazymeeks\PHPCacher\Core\Inflector\Inflect;
 abstract class CacherDriverAbstract{
 
 	use BaseTrait;
+
+	protected $cacheDriver;
 
 	protected $driverName;
 
@@ -67,12 +69,66 @@ abstract class CacherDriverAbstract{
 		$class = $this->namespace . ucfirst($this->getDriverName()) . '\\' .$this->cache_purger_postfix;
 		$purger = new $class;
 		$purger->purgeAllCache($this->getCacheDir());
-		/*$cache_files = glob($this->getCacheDir() . '*');
-		foreach($cache_files as $file){
-			if(is_file($file)){
-				unlink($file);
+	}
+
+	/**
+	 * Expires the cache daily
+	 *
+	 * @return void
+	 */
+	public function daily(){
+		$this->save(time() + 86400);
+	}
+
+	/**
+	 * Expires the cache hourly
+	 * @return void
+	 */
+	public function hourly(){
+		$this->save(time() + 3600);
+	}
+
+	/**
+	 * Expires the cache every 30minutes
+	 * @return void
+	 */
+	public function everyThirtyMinutes(){
+		$this->save(time() + 1800);
+	}
+
+	/**
+	 * Expires the cache
+	 * @return void
+	 */
+	public function everyFiveMinutes(){
+		$this->save(time() + 300);
+	}
+
+	/**
+	 * Save the data in the cache
+	 *
+	 * @return void
+	 */
+	protected function save($time){
+		
+		// check the driver
+		$method = $this->getDriverName() . 'SaveCache';
+		if(method_exists($this->cacheDriver, $method)){
+			$this->cacheDriver->$method($time);
+		}
+
+		/*$key = md5($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
+		if(!is_null($this->getCacheDir())){
+
+			if(!file_exists($this->getCacheDir())){
+				mkdir($this->getCacheDir(), 0777, true);
 			}
+			$file = fopen($this->getCacheDir() . $key . '.txt', "w");
+			$time = (!is_null($this->getExpiration()) ? $this->getExpiration() : $time);
+			$data = ['expiration' => [$time, 'data' => $this->cache_data]];
+			$data = serialize($data);
+			fwrite($file, $data);
+			fclose($file);
 		}*/
 	}
-	
 }
