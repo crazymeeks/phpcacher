@@ -25,7 +25,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		// set the cache directory
 		$this->setCacheDir();
 
-
+		$this->cacheDriver = $this;
 	}
 
 	/**
@@ -67,9 +67,8 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		if(!is_numeric($time)){
 			throw new Exception('Invalid cache expiration.');
 		}
-		// store item to cache
-		$key = !is_null($this->custom_key) ? md5($this->cache_key . ':' . $this->custom_key) : md5($this->cache_key);
-		apcu_store($key, $this->cache_data, $time);
+		
+		$this->save($time);
 	}
 
 	/**
@@ -82,6 +81,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	public function getItem($key, $customClaim = null){
 		$key = !is_null($customClaim) ? md5($key . ':' . $customClaim) : md5($key);
 		$data = apcu_fetch($key);
+		
 		return !empty($data) ? $data : [];
 	}
 
@@ -95,6 +95,18 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 	public function deleteCache($key, $customClaim = null){
 		$key = !is_null($customClaim) ? md5($key . ':' . $customClaim) : md5($key);
 		return apcu_delete($key);
+	}
+
+	/**
+	 * Save the apcu cache
+	 *
+	 * @param strtotime $time
+	 * @return void
+	 */
+	protected function apcuSaveCache($time){
+		// store item to cache
+		$key = !is_null($this->custom_key) ? md5($this->cache_key . ':' . $this->custom_key) : md5($this->cache_key);
+		apcu_store($key, $this->cache_data, $time);
 	}
 
 }

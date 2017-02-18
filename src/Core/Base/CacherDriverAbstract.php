@@ -77,7 +77,7 @@ abstract class CacherDriverAbstract{
 	 * @return void
 	 */
 	public function daily(){
-		$this->save(time() + 86400);
+		$this->save(86400);
 	}
 
 	/**
@@ -85,7 +85,7 @@ abstract class CacherDriverAbstract{
 	 * @return void
 	 */
 	public function hourly(){
-		$this->save(time() + 3600);
+		$this->save(3600);
 	}
 
 	/**
@@ -93,7 +93,7 @@ abstract class CacherDriverAbstract{
 	 * @return void
 	 */
 	public function everyThirtyMinutes(){
-		$this->save(time() + 1800);
+		$this->save(1800);
 	}
 
 	/**
@@ -101,34 +101,20 @@ abstract class CacherDriverAbstract{
 	 * @return void
 	 */
 	public function everyFiveMinutes(){
-		$this->save(time() + 300);
+		$this->save(300);
 	}
 
 	/**
 	 * Save the data in the cache
 	 *
+	 * @param strtotime $time
 	 * @return void
 	 */
 	protected function save($time){
-		
 		// check the driver
-		$method = $this->getDriverName() . 'SaveCache';
+		$method = strtolower($this->getDriverName()) . 'SaveCache';
 		if(method_exists($this->cacheDriver, $method)){
 			$this->cacheDriver->$method($time);
 		}
-
-		/*$key = md5($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
-		if(!is_null($this->getCacheDir())){
-
-			if(!file_exists($this->getCacheDir())){
-				mkdir($this->getCacheDir(), 0777, true);
-			}
-			$file = fopen($this->getCacheDir() . $key . '.txt', "w");
-			$time = (!is_null($this->getExpiration()) ? $this->getExpiration() : $time);
-			$data = ['expiration' => [$time, 'data' => $this->cache_data]];
-			$data = serialize($data);
-			fwrite($file, $data);
-			fclose($file);
-		}*/
 	}
 }

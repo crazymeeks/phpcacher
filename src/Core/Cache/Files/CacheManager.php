@@ -69,21 +69,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		if(!is_numeric($time)){
 			throw new Exception('Invalid cache expiration.');
 		}
-		$this->save(time() + $time);
-		// $key = md5($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
-		// if(!is_null($this->getCacheDir())){
-
-		// 	if(!file_exists($this->getCacheDir())){
-		// 		mkdir($this->getCacheDir(), 0777, true);
-		// 	}
-		// 	$file = fopen($this->getCacheDir() . $key . '.txt', "w");
-		// 	$time = (!is_null($this->getExpiration()) ? $this->getExpiration() : $time);
-		// 	$data = ['expiration' => [time() + $time, 'data' => $this->cache_data]];
-		// 	$data = serialize($data);
-		// 	fwrite($file, $data);
-		// 	fclose($file);
-		// }
-
+		$this->save($time);
 	}
 
 	/**
@@ -139,7 +125,13 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		}
 	}
 
-	public function filesSaveCache($time){
+	/**
+	 * Save the file cache
+	 *
+	 * @param strtotime $time
+	 * @return void
+	 */
+	protected function filesSaveCache($time){
 		$key = md5($this->cache_key . (!is_null($this->custom_key) ? '-' . $this->custom_key : ''));
 		if(!is_null($this->getCacheDir())){
 
@@ -148,7 +140,7 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 			}
 			$file = fopen($this->getCacheDir() . $key . '.txt', "w");
 			$time = (!is_null($this->getExpiration()) ? $this->getExpiration() : $time);
-			$data = ['expiration' => [$time, 'data' => $this->cache_data]];
+			$data = ['expiration' => [time() + $time, 'data' => $this->cache_data]];
 			$data = serialize($data);
 			fwrite($file, $data);
 			fclose($file);
