@@ -24,8 +24,6 @@ class CacheManager extends CacherDriverAbstract implements CacherDriverInterface
 		$this->setDriverName($drivername);
 		// set the cache directory
 		$this->setCacheDir();
-
-		$this->cacheDriver = $this;
 	}
 
 	/**

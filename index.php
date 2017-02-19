@@ -7,8 +7,8 @@ use Crazymeeks\PHPCacher\Logger;
 $cache = new Cacher;
 
 $instance = $cache->setDriver('apcu');
-//$data = json_encode([['id' => 2, 'name' => 'John Doe', 'email' => 'johndoe@example.com']]);
-//$instance->setKey('cachekey')->setItem($data)->everyFiveMinutes();
+// $data = json_encode([['id' => 2, 'name' => 'John Dsoe', 'email' => 'johndoe@example.com']]);
+// $instance->setKey('cachekey')->setItem($data)->everyFiveMinutes();
 
 // Set the global expiration
 //$instance->setExpiration(30);

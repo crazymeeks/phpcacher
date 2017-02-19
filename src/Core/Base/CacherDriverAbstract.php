@@ -15,8 +15,6 @@ abstract class CacherDriverAbstract{
 
 	use BaseTrait;
 
-	protected $cacheDriver;
-
 	protected $driverName;
 
 	protected $namespace = "Crazymeeks\\PHPCacher\\Core\\Cache\\";
@@ -113,8 +111,8 @@ abstract class CacherDriverAbstract{
 	protected function save($time){
 		// check the driver
 		$method = strtolower($this->getDriverName()) . 'SaveCache';
-		if(method_exists($this->cacheDriver, $method)){
-			$this->cacheDriver->$method($time);
+		if(method_exists($this, $method)){
+			call_user_func_array([$this, $method], [$time]);
 		}
 	}
 }
