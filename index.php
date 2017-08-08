@@ -1,41 +1,32 @@
 <?php
+
 require('./vendor/autoload.php');
 
 use Crazymeeks\PHPCacher\Cacher;
 use Crazymeeks\PHPCacher\Logger;
 
+## Sample usage
 $cache = new Cacher;
 
-$instance = $cache->setDriver('apcu');
-// $data = json_encode([['id' => 2, 'name' => 'John Dsoe', 'email' => 'johndoe@example.com']]);
-// $instance->setKey('cachekey')->setItem($data)->everyFiveMinutes();
+# Set the cache driver
+$instance = $cache->setDriver('files');
+# Prepare cache data
+$data = json_encode([['id' => 2, 'name' => 'John Dsoe', 'email' => 'johndoe@example.com']]);
+# Set cache data
+$instance->setKey('mykey')->setItem($data)->everyFiveMinutes();
 
-// Set the global expiration
-//$instance->setExpiration(30);
+# Optional: Set the global expiration
+#$instance->setExpiration(30);
 
-/*$data = json_decode($instance->getItem('cachekey'));
-if(count($data) > 0){
-	echo "<pre>";
-	print_r($data);
-}*/
+## Get the cached data
 
+# $data = json_decode($instance->getItem('mykey'));
+# if(count($data) > 0){
+# 	echo "<pre>";
+# 	print_r($data);
+# }
 
-/*** Redis Cache **/
-
-
-// $instance = $cache->setDriver('redis');
-
-// $instance->setKey('names','aaron')->setItem('Aaron Paul')->expires(10);
-
-// var_dump($instance->getItem("names","aaron"));
-
-
-
-/*********Sample Usage of Logger***********/
-
-
-
-/*$log = new Logger();
-$log_var = $log->setLogger("redis");
-
-echo $log_var->setLog("Test Logger",3);*/
+################################################################
+# Please refer to https://github.com/crazymeeks/phpcacher/wiki #
+# for more details about the usage                             #
+################################################################

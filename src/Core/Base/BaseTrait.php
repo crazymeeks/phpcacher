@@ -41,15 +41,17 @@ trait BaseTrait{
 	public function setCacheDir($customCachePath = null){
 		
 		$cache_dir = null;
+		
+		$host = $_SERVER['HTTP_HOST'];
 
 		if(is_null($customCachePath)){
 			if(os_type() == 'windows'){
-			$cache_dir = "C:/tmp/" . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
+			$cache_dir = "C:/tmp/" . $host . '/' . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
 			}elseif(os_type() == 'linux' || os_type() == 'mac'){
-				$cache_dir = "/tmp/" . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
+				$cache_dir = "/tmp/" . $host . '/' . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
 			}
 		}else{
-			$cache_dir = rtrim($customCachePath, "/") . '/' . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
+			$cache_dir = rtrim($customCachePath, "/") . $host . '/' . $this->getRootDir() . '/' . strtolower($this->getDriverName()) . '/';
 		}
 
 		$this->cache_dir = $cache_dir;
