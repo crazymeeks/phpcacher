@@ -67,8 +67,9 @@ Email: jeffclaud17@gmail.com
 # Author
 Jeff Claud[jeffclaud17@gmail.com]
 
-# Contributor
+# Contributors
 Aaron Tolentino[aarontolentino123@gmail.com]
+Joshua Cliffor Reyes
 
 # Referrences
 * See the [WIKI](https://github.com/crazymeeks/phpcacher/wiki) for documentation
