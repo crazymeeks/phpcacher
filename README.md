@@ -69,7 +69,7 @@ Jeff Claud[jeffclaud17@gmail.com]
 
 # Contributors
 Aaron Tolentino[aarontolentino123@gmail.com]  
-Joshua Cliffor Reyes
+Joshua Clifford Reyes
 
 # Referrences
 * See the [WIKI](https://github.com/crazymeeks/phpcacher/wiki) for documentation
